@@ -1,0 +1,47 @@
+networks:
+  proxy:
+    external: true
+
+services:
+  db:
+    image: mariadb
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    env_file:
+      - stack.env
+    volumes:
+      - /path/to/your/volume:/var/lib/mysql
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.11
+
+
+  redis:
+    image: redis
+    restart: always
+    command: redis-server --requirepass *yourredispass*
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.12
+
+  app:
+    image: nextcloud:latest
+    restart: unless-stopped
+    expose:
+      - 80
+    links:
+      - db
+      - redis
+    volumes:
+      - /path/to/your/volume:/var/www/html
+    environment:
+      - MYSQL_HOST=db
+      - REDIS_HOST_PASSWORD=
+    env_file:
+      - stack.env
+    depends_on:
+      - db
+      - redis
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.13

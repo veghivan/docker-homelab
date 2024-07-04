@@ -1,0 +1,23 @@
+networks:
+  proxy:
+    external: true
+    
+services:
+  app:
+    image: jc21/nginx-proxy-manager:github-pr-3478
+    environment:
+      PUID: 1000
+      PGID: 1000
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+
+    expose:
+      - 81/tcp
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.5
+    volumes:
+      - /path/to/your/volume:/data
+      - /path/to/your/volume:/etc/letsencrypt

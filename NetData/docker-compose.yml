@@ -1,0 +1,42 @@
+
+
+networks:
+  proxy:
+    external: true
+  
+services:
+  netdata:
+    image: netdata/netdata
+    container_name: netdata
+    pid: host
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /home/ivu/netdata/config:/etc/netdata
+      - /home/ivu/netdata/lib:/var/lib/netdata
+      - /home/ivu/netdata/cache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/log:/host/var/log:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.monitor.rule=Host(`monitor.ivuserver.duckdns.org`)"
+      - "traefik.http.routers.monitor.entrypoints=websecure"
+      - "traefik.http.routers.monitor.tls=true"
+      - "traefik.http.routers.monitor.tls.certresolver=production"
+      - "traefik.http.routers.monitor.service=monitor-service@docker"
+      - "traefik.http.services.monitor-service.loadbalancer.server.port=19999"
+      - "traefik.http.middlewares.auth.basicAuth.users=admin:$$apr1$$18OaxH0g$$m9oNvbHiZno0oGDAbJFPR/"
+      - "traefik.http.routers.monitor.middlewares=auth"
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.9

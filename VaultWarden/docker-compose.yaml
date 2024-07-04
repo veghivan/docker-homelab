@@ -1,0 +1,15 @@
+networks:
+  proxy:
+    external: true
+    
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    volumes:
+      - /path/to/your/volume:/data
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.10
+    expose:
+      - 80
+    restart: unless-stopped

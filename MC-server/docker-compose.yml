@@ -1,0 +1,23 @@
+services:
+  mc:
+    container_name: MC-SERVER
+    image: itzg/minecraft-server:latest
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+      - "19132:19132"
+      - "19132:19132/udp"
+    environment:
+      EULA: "TRUE"
+      TZ: "Europe/Budapest"
+      TYPE: "PAPER"
+      VERSION: 1.20.6
+      MEMORY: 4G
+      MAX_MEMORY: 4G
+      INIT_MEMORY: 3G
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - /path/to/your/volume:/data
+    restart: unless-stopped
+

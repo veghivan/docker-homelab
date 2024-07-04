@@ -1,0 +1,17 @@
+networks:
+  proxy:
+    external: true
+
+services:
+  nginx:
+    image: nginx:stable
+    container_name: nginx-kezdolap
+    expose:
+      - 80
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.8
+    volumes:
+      - /path/to/your/volume:/usr/share/nginx/html 
+    restart: unless-stopped
+

@@ -1,0 +1,26 @@
+networks:
+  proxy:
+    external: true
+    
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:v2-s6
+
+
+    privileged: true
+
+    container_name: filebrowser
+    expose:
+      - 80
+
+
+
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.4
+    volumes:
+      - /path/to/your/volume:/srv
+      - /path/to/your/volume:/database
+      - /path/to/your/volume:/config
+    restart: unless-stopped
+

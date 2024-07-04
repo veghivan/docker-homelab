@@ -1,0 +1,26 @@
+networks:
+  proxy:
+    external: true
+    
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    ports:
+      - 32400:32400
+      - 1900:1900
+      - 8324:8324
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - VERSION=docker
+      - PLEX_CLAIM= #optional
+    volumes:
+      - /path/to/library:/config
+      - /path/to/tvseries:/tv
+      - /path/to/movies:/movies
+     networks:
+      proxy:
+        ipv4_address: 172.28.0.30
+    restart: unless-stopped

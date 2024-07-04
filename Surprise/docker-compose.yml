@@ -1,0 +1,13 @@
+networks:
+  proxy:
+    external: true
+    
+services:
+  rickroll:
+    image: modem7/docker-rickroll
+    container_name: Rickroll
+    expose:
+      - 8080
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.6

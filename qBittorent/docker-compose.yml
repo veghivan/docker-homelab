@@ -1,0 +1,27 @@
+---
+networks:
+  proxy:
+    external: true
+  
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Budapest
+      - WEBUI_PORT=8000
+      - TORRENTING_PORT=6881
+    volumes:
+      - /path/to/your/volume:/config
+      - /path/to/your/volume:/downloads
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+    expose:
+      - 8000  
+    networks:
+      proxy:
+        ipv4_address: 172.28.0.7
+    restart: unless-stopped
