@@ -1,7 +1,7 @@
 # Otthoni Szerver Konfigurációs Áttekintés
 
 Ez a tároló tartalmazza a Docker compose fájlokat egy átfogó otthoni szerver környezethez. Az alábbiakban minden szolgáltatás részletes leírását találod.
-![Leíró szöveg](/images/Server Projekt grafika.png)
+![PNG](/images/grafika.png)
 
 
 ## Szolgáltatások
