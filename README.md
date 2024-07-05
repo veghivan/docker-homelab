@@ -62,7 +62,7 @@ Ez a tároló tartalmazza a Docker compose fájlokat egy átfogó otthoni szerve
 ## Telepítés
 
 A szolgáltatások telepítéséhez konfiguráldd a számodra megfelelő felhasználásra a konténereket, ezt a comopose fájlban és a környezeti változók szemályre szabásával teheted meg.
-Pull rquest után minden szolgáltatás almappájában a konfigurációt a követően "docker-compose up -d"-paranccsal elindíthatod. (Portainer hasznlat esetén létrehozol egy új stacket, és ott tudod konfigurálni a környezeti változókat)
+Pull request után minden szolgáltatás almappájában a konfigurációt a követően "docker-compose up -d"-paranccsal elindíthatod. (Portainer használata esetén létrehozol egy új stacket, és ott tudod konfigurálni a környezeti változókat)
 
 
 ## Karbantartás
